@@ -55,6 +55,9 @@ main = do
   uvuResult <- owoify "This is the string to owo! Kinda cute, isn't it?" Uvu
   log owoResult
   log uvuResult
+
+-- This is teh stwing two owo! Kinda cute, isn't it?
+-- fwis is teh stwing two owowouvu Kinda cuteowo isn't it?
 ```
 
 ## Disclaimer
