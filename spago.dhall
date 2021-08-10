@@ -1,4 +1,5 @@
-{ name = "my-project"
+{ name = "purescript-owoify"
+, license = "MIT"
 , dependencies =
   [ "aff"
   , "arrays"
@@ -22,5 +23,5 @@
   , "unfoldable"
   ]
 , packages = ./packages.dhall
-, sources = [ "src/**/*.purs", "test/**/*.purs" ]
+, sources = [ "src/**/*.purs" ]
 }
