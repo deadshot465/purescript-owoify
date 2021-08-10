@@ -1,0 +1,34 @@
+{
+    "name": "purescript-purescript-owoify",
+    "license": [
+        "MIT"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/deadshot465/purescript-owoify"
+    },
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "output"
+    ],
+    "dependencies": {
+        "purescript-arrays": "^v6.0.1",
+        "purescript-bifunctors": "^v5.0.0",
+        "purescript-console": "^v5.0.0",
+        "purescript-effect": "^v3.0.0",
+        "purescript-either": "^v5.0.0",
+        "purescript-foldable-traversable": "^v5.0.1",
+        "purescript-integers": "^v5.0.0",
+        "purescript-lists": "^v6.0.1",
+        "purescript-maybe": "^v5.0.0",
+        "purescript-prelude": "^v5.0.1",
+        "purescript-psci-support": "^v5.0.0",
+        "purescript-random": "^v5.0.0",
+        "purescript-strings": "^v5.0.0",
+        "purescript-transformers": "^v5.1.0",
+        "purescript-tuples": "^v6.0.1",
+        "purescript-unfoldable": "^v5.0.0"
+    }
+}
