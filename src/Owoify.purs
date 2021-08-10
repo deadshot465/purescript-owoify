@@ -1,4 +1,8 @@
-module Data.Owoify.Owoify where
+module Data.Owoify.Owoify
+  ( owoify
+  , OwoifyLevel(..)
+  )
+  where
   
 import Prelude
 
@@ -7,11 +11,11 @@ import Data.Bifunctor (rmap)
 import Data.Either (Either(..))
 import Data.List (List(..), intercalate, length, reverse, uncons)
 import Data.Maybe (Maybe(..))
-import Data.Owoify.Data.Presets (owoMappingList, specificWordMappingList, uvuMappingList, uwuMappingList)
-import Data.Owoify.Data.RegexFlags (globalFlags)
-import Data.Owoify.Entity.Word (Word(..))
-import Data.Owoify.Parser.OwoifyParser (OError, OwoifyParser, count, runOwoifyParser)
-import Data.Owoify.Util.Interleave (interleave)
+import Data.Owoify.Internal.Data.Presets (owoMappingList, specificWordMappingList, uvuMappingList, uwuMappingList)
+import Data.Owoify.Internal.Data.RegexFlags (globalFlags)
+import Data.Owoify.Internal.Entity.Word (Word(..))
+import Data.Owoify.Internal.Parser.OwoifyParser (OError, OwoifyParser, count, runOwoifyParser)
+import Data.Owoify.Internal.Util.Interleave (interleave)
 import Data.String.Regex (match, regex)
 import Data.Traversable (sequence)
 import Data.Tuple (Tuple(..))

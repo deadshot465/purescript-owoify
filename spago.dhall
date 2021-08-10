@@ -13,7 +13,6 @@
   , "maybe"
   , "node-buffer"
   , "node-fs-aff"
-  , "nullable"
   , "prelude"
   , "psci-support"
   , "random"

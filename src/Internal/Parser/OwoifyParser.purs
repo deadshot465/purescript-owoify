@@ -1,4 +1,12 @@
-module Data.Owoify.Parser.OwoifyParser where
+module Data.Owoify.Internal.Parser.OwoifyParser
+  ( class OwoifyError
+  , count
+  , eof
+  , OError(..)
+  , OwoifyParser
+  , parseError
+  , runOwoifyParser
+  ) where
 
 import Prelude
 
@@ -8,7 +16,7 @@ import Data.Foldable (class Foldable, foldM)
 import Data.Generic.Rep (class Generic)
 import Data.List (List(..))
 import Data.Maybe (Maybe(..))
-import Data.Owoify.Entity.Word (Word(..))
+import Data.Owoify.Internal.Entity.Word (Word(..))
 import Data.Show.Generic (genericShow)
 import Data.Traversable (class Traversable, sequence)
 import Data.Tuple (Tuple(..))

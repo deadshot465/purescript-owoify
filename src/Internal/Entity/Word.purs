@@ -1,4 +1,10 @@
-module Data.Owoify.Entity.Word where
+module Data.Owoify.Internal.Entity.Word
+  ( replace
+  , replaceWithFuncSingle
+  , replaceWithFuncMultiple
+  , Word(..)
+  )
+  where
 
 import Prelude
 
@@ -7,7 +13,7 @@ import Data.Array.NonEmpty.Internal (NonEmptyArray(..))
 import Data.Either (Either(..))
 import Data.List (List, any, nub)
 import Data.Maybe (Maybe(..), fromMaybe)
-import Data.Owoify.Data.RegexFlags (globalFlags)
+import Data.Owoify.Internal.Data.RegexFlags (globalFlags)
 import Data.String (Pattern(..), Replacement(..), replace) as String
 import Data.String (trim)
 import Data.String.Regex (Regex, match, regex, source, test)

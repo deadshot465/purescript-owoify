@@ -1,4 +1,4 @@
-module Data.Owoify.Util.Interleave where
+module Data.Owoify.Internal.Util.Interleave where
 
 import Prelude
 

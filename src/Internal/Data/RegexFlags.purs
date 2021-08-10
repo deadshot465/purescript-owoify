@@ -1,4 +1,4 @@
-module Data.Owoify.Data.RegexFlags where
+module Data.Owoify.Internal.Data.RegexFlags where
 
 import Data.String.Regex.Flags (RegexFlags(..))
   

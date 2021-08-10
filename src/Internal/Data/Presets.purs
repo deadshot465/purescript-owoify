@@ -1,12 +1,12 @@
-module Data.Owoify.Data.Presets where
+module Data.Owoify.Internal.Data.Presets where
 
 import Prelude
 
 import Control.Monad.Except (ExceptT(..), except)
 import Data.Array (toUnfoldable)
 import Data.List (List)
-import Data.Owoify.Data.Mappings as Mappings
-import Data.Owoify.Entity.Word (Word)
+import Data.Owoify.Internal.Data.Mappings as Mappings
+import Data.Owoify.Internal.Entity.Word (Word)
 import Effect (Effect)
 
 specificWordMappingList :: List (Word -> ExceptT String Effect Word)

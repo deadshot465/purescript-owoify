@@ -1,12 +1,54 @@
-module Data.Owoify.Data.Mappings where
+module Data.Owoify.Internal.Data.Mappings
+  ( mapBracketsToStartrails
+  , mapConsonantRToConsonantW
+  , mapDeadToDed
+  , mapEwToUwu
+  , mapFiToFwi
+  , mapFucToFwuc
+  , mapHahaToHeheXd
+  , mapHeyToHay
+  , mapLeToWal
+  , mapLlToWw
+  , mapLOrROToWo
+  , mapLyToWy
+  , mapMeToMwe
+  , mapMomToMwom
+  , mapNrToNw
+  , mapNVowelTToNd
+  , mapNVowelToNy
+  , mapOldToOwld
+  , mapOlToOwl
+  , mapOToOwo
+  , mapOveToUv
+  , mapOverToOwor
+  , mapPeriodCommaExclamationSemicolonToKaomojis
+  , mapPleToPwe
+  , mapPoiToPwoi
+  , mapReadToWead
+  , mapROrLToW
+  , mapRyToWwy
+  , mapSpecificConsonantsLeToLetterAndWal
+  , mapSpecificConsonantsOToLetterAndWo
+  , mapThatToDat
+  , mapTheToTeh
+  , mapThToF
+  , mapTimeToTim
+  , mapVerToWer
+  , mapVeToWe
+  , mapVOrWLeToWal
+  , mapVowelOrRExceptOLToWl
+  , mapWorseToWose
+  , mapYouToU
+  )
+  where
 
 import Prelude
 
 import Data.Array (length, (!!))
 import Data.Either (Either)
 import Data.Maybe (fromMaybe)
-import Data.Owoify.Data.RegexFlags (defaultFlags)
-import Data.Owoify.Entity.Word (Word, replace, replaceWithFuncMultiple, replaceWithFuncSingle)
+import Data.Owoify.Internal.Data.RegexFlags (defaultFlags)
+import Data.Owoify.Internal.Entity.Word (Word, replace, replaceWithFuncMultiple, replaceWithFuncSingle)
 import Data.String (toUpper)
 import Data.String.Regex (Regex, regex)
 import Effect (Effect)
