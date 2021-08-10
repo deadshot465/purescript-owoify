@@ -21,6 +21,7 @@ import Data.String.Regex as Regex
 
 foreign import _matchAll :: Regex -> String -> Array (Array String)
 
+-- | Basic type for manipulating strings.
 newtype Word = Word
   { innerWord :: String
   , innerReplacedWords :: List String
@@ -58,6 +59,7 @@ buildReplacedWords replaceValue = case _ of
   Right arr ->
     (\s -> String.replace (String.Pattern s) (String.Replacement replaceValue) s) <$> arr
 
+-- | `replace word searchValue replaceValue replaceReplacedWords` will match the `word` against `searchValue` and replace matched strings with `replaceValue`.
 replace :: Word -> Regex -> String -> Boolean -> Word
 replace word@(Word { innerWord, innerReplacedWords }) searchValue replaceValue replaceReplacedWords
   | not replaceReplacedWords && containsReplacedWords word searchValue replaceValue = word
@@ -67,6 +69,7 @@ replace word@(Word { innerWord, innerReplacedWords }) searchValue replaceValue r
         collection = buildCollection searchValue innerWord
         replacedWords = buildReplacedWords replaceValue collection
 
+-- | `replaceWithFuncSingle word searchValue f replaceReplacedWords` will match the `word` against `searchValue` and replace matched strings with the string resulting from invoking `f`.
 replaceWithFuncSingle :: Word -> Regex -> (Unit -> String) -> Boolean -> Word
 replaceWithFuncSingle word@(Word { innerWord, innerReplacedWords }) searchValue f replaceReplacedWords =
   if not replaceReplacedWords && containsReplacedWords word searchValue replaceValue then word
@@ -78,6 +81,8 @@ replaceWithFuncSingle word@(Word { innerWord, innerReplacedWords }) searchValue 
         collection = buildCollection searchValue innerWord
         replacedWords = buildReplacedWords replaceValue collection
 
+-- | `replaceWithFuncMultiple word searchValue f replaceReplacedWords` will match the `word` against `searchValue` and replace matched strings with the string resulting from invoking `f`.
+-- | The difference between this and `replaceWithFuncSingle` is that the `f` here takes two `String` arguments.
 replaceWithFuncMultiple :: Word -> Regex -> (String -> String -> String) -> Boolean -> Word
 replaceWithFuncMultiple word@(Word { innerWord, innerReplacedWords }) searchValue f replaceReplacedWords
   | not test searchValue innerWord = word

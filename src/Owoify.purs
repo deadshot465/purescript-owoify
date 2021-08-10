@@ -22,6 +22,7 @@ import Data.Tuple (Tuple(..))
 import Effect (Effect)
 import Effect.Class.Console (error)
 
+-- | Levels to denote owoness.
 data OwoifyLevel = Owo | Uwu | Uvu
 
 words :: String -> Either String (Maybe (List Word))
@@ -51,6 +52,8 @@ mapResult :: ∀ a. Either a a -> a
 mapResult (Left err) = err
 mapResult (Right res) = res
 
+-- | `owoify source level` will owoify source string using the specified level.
+-- | Currently three levels are supported, from weak to strong: `Owo`, `Uwu`, `Uvu`
 owoify :: String -> OwoifyLevel -> Effect String
 owoify source level = do
   w <- logIfError $ words source

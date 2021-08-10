@@ -23,10 +23,14 @@ import Data.Tuple (Tuple(..))
 import Data.Unfoldable (class Unfoldable, none, replicate)
 import Effect (Effect)
 
+-- | The `OwoifyError` class represents those types denoting errors when owoifying.
 class OwoifyError e where
+  -- | Representing that the source collection of strings has been exhausted.
   eof :: e
+  -- | Representing general parser error. Currently not used.
   parseError :: String -> e
 
+-- | A simple type representing errors that occur during owoification.
 data OError = EOF | ParseError String
 
 derive instance genericOError :: Generic OError _
@@ -61,6 +65,7 @@ instance bindOwoifyParser :: Bind (OwoifyParser e f) where
 
 instance monadOwoifyParser :: Monad (OwoifyParser e f)
 
+-- | `runOwoifyParser (OwoifyParser f)` simply executes (unwraps) the parser inside the monad.
 runOwoifyParser :: ∀ e f a. OwoifyError e => OwoifyParser e f a -> OwoifyFunction e f a
 runOwoifyParser (OwoifyParser f) = f
 
@@ -85,6 +90,7 @@ word unconsFunc mappings = OwoifyParser \s -> do
       let result = runReduce w mappings
       Right $ Tuple tail result
 
+-- | `count unconsFunc n p` will replicate owoify parser according to the specified `uncons`, length (`n`) and a collection of owoify functions. 
 count :: ∀ f e
   . OwoifyError e
   => Foldable f

@@ -4,7 +4,8 @@ import Prelude
 
 import Data.Int (even)
 import Data.List (List(..), null, (:))
-  
+
+-- | Utility function to interleave two lists.
 interleave :: ∀ a. List a -> List a -> List a
 interleave a b = go Nil a b 0
   where
