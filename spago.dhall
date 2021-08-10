@@ -1,4 +1,4 @@
-{ name = "purescript-owoify"
+{ name = "owoify"
 , license = "MIT"
 , dependencies =
   [ "arrays"
