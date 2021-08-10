@@ -20,4 +20,5 @@
   ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs" ]
+, repository = "https://github.com/deadshot465/purescript-owoify"
 }
