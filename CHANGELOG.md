@@ -3,4 +3,5 @@ All notable changes to this project will be documented in this file. This change
 
 ## 1.1.2
 ### Fixed
-- Removed unnecessary maps.
+- Remove unnecessary maps.
+- Refactor out some duplicate codes.

@@ -6,6 +6,7 @@ module Data.Owoify.Owoify
   
 import Prelude
 
+import Control.Monad.Except (ExceptT)
 import Data.Array.NonEmpty (toUnfoldable)
 import Data.Bifunctor (rmap)
 import Data.Either (Either(..))
@@ -58,6 +59,12 @@ mapResult :: ∀ a. Either a a -> a
 mapResult (Left err) = err
 mapResult (Right res) = res
 
+buildParsers ::
+  Int
+  -> List (Word → ExceptT String Effect Word)
+  -> OwoifyParser OError List (List (Effect (Either String Word)))
+buildParsers n l = count uncons n l
+
 -- | `owoify source level` will owoify source string using the specified level.
 -- | Currently three levels are supported, from weak to strong: `Owo`, `Uwu`, `Uvu`
 owoify :: String -> OwoifyLevel -> Effect String
@@ -65,10 +72,10 @@ owoify source level = do
   w <- logIfError $ words source
   s <- logIfError $ spaces source
   let n = length w
-  let parsers = case level of
-        Owo -> count uncons n (specificWordMappingList <> owoMappingList) :: OwoifyParser OError List (List (Effect (Either String Word)))
-        Uwu -> count uncons n (specificWordMappingList <> uwuMappingList <> owoMappingList)
-        Uvu -> count uncons n (specificWordMappingList <> uvuMappingList <> uwuMappingList <> owoMappingList)
+  let parsers = buildParsers n $ specificWordMappingList <> case level of
+        Owo -> owoMappingList
+        Uwu -> uwuMappingList <> owoMappingList
+        Uvu -> uvuMappingList <> uwuMappingList <> owoMappingList
   let result = runOwoifyParser parsers w :: Either OError _
   case result of
     Left err -> do
