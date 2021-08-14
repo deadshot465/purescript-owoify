@@ -63,7 +63,7 @@ buildParsers ::
   Int
   -> List (Word → ExceptT String Effect Word)
   -> OwoifyParser OError List (List (Effect (Either String Word)))
-buildParsers n l = count uncons n l
+buildParsers n = count uncons n
 
 -- | `owoify source level` will owoify source string using the specified level.
 -- | Currently three levels are supported, from weak to strong: `Owo`, `Uwu`, `Uvu`
