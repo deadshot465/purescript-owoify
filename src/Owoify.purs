@@ -13,31 +13,37 @@ import Data.List (List(..), intercalate, length, reverse, uncons)
 import Data.Maybe (Maybe(..))
 import Data.Owoify.Internal.Data.Presets (owoMappingList, specificWordMappingList, uvuMappingList, uwuMappingList)
 import Data.Owoify.Internal.Data.RegexFlags (globalFlags)
-import Data.Owoify.Internal.Entity.Word (Word(..))
+import Data.Owoify.Internal.Entity.Word (Word)
 import Data.Owoify.Internal.Parser.OwoifyParser (OError, OwoifyParser, count, runOwoifyParser)
 import Data.Owoify.Internal.Util.Interleave (interleave)
 import Data.String.Regex (match, regex)
-import Data.Traversable (sequence)
+import Data.Traversable (class Traversable, sequence)
 import Data.Tuple (Tuple(..))
+import Data.Unfoldable (class Unfoldable)
 import Effect (Effect)
 import Effect.Class.Console (error)
 
 -- | Levels to denote owoness.
 data OwoifyLevel = Owo | Uwu | Uvu
 
-words :: String -> Either String (Maybe (List Word))
-words s =
-  regex "[^\\s]+" globalFlags <#> (\r -> case match r s of
+extractWords :: ∀ t
+  . Traversable t
+  => Unfoldable t
+  => String
+  -> String
+  -> Either String (Maybe (t String))
+extractWords pattern s =
+  regex pattern globalFlags <#> (\r -> case match r s of
     Nothing -> Nothing
-    Just arr -> sequence $ map (\s' -> Word { innerWord: s', innerReplacedWords: Nil }) <$> toUnfoldable arr)
+    Just arr -> sequence $ toUnfoldable arr)
 
-spaces :: String -> Either String (Maybe (List Word))
-spaces s = 
-  regex "\\s+" globalFlags <#> (\r -> case match r s of
-    Nothing -> Nothing
-    Just arr -> sequence $ map (\s' -> Word { innerWord: s', innerReplacedWords: Nil }) <$> toUnfoldable arr)
+words :: String -> Either String (Maybe (List String))
+words = extractWords "[^\\s]+"
 
-logIfError :: Either String (Maybe (List Word)) -> Effect (List Word)
+spaces :: String -> Either String (Maybe (List String))
+spaces = extractWords "\\s+"
+
+logIfError :: ∀ a. Either String (Maybe (List a)) -> Effect (List a)
 logIfError = case _ of
   Left err -> do
     error err
@@ -63,13 +69,13 @@ owoify source level = do
         Owo -> count uncons n (specificWordMappingList <> owoMappingList) :: OwoifyParser OError List (List (Effect (Either String Word)))
         Uwu -> count uncons n (specificWordMappingList <> uwuMappingList <> owoMappingList)
         Uvu -> count uncons n (specificWordMappingList <> uvuMappingList <> uwuMappingList <> owoMappingList)
-  let result = runOwoifyParser parsers (show <$> w) :: Either OError _
+  let result = runOwoifyParser parsers w :: Either OError _
   case result of
     Left err -> do
       error $ show err
       pure ""
     Right (Tuple _ transformedWords) -> do
-      wordsList <- sequence transformedWords
+      wordsList <- sequence transformedWords >>= pure <<< map (rmap show)
       spacesList <- pure $ Right <$> s
-      let interleavedArray = reverse $ mapResult <$> rmap show <$> interleave wordsList spacesList
+      let interleavedArray = reverse $ mapResult <$> interleave wordsList spacesList
       pure $ intercalate "" interleavedArray
