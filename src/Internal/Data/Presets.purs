@@ -15,7 +15,6 @@ specificWordMappingList = toUnfoldable
   , except <<< Mappings.mapMomToMwom
   , except <<< Mappings.mapTimeToTim
   , except <<< Mappings.mapMeToMwe
-  , except <<< Mappings.mapNVowelToNy
   , except <<< Mappings.mapOverToOwor
   , except <<< Mappings.mapOveToUv
   , except <<< Mappings.mapHahaToHeheXd
@@ -23,6 +22,14 @@ specificWordMappingList = toUnfoldable
   , except <<< Mappings.mapYouToU
   , except <<< Mappings.mapReadToWead
   , except <<< Mappings.mapWorseToWose
+  , except <<< Mappings.mapGreatToGwate
+  , except <<< Mappings.mapAviatToAwiat
+  , except <<< Mappings.mapDedicatToDeditat
+  , except <<< Mappings.mapRememberToRember
+  , except <<< Mappings.mapWhenToWen
+  , except <<< Mappings.mapFrightenedToFrigten
+  , except <<< Mappings.mapMemeToMem
+  , except <<< Mappings.mapFeelToFell
   ]
 
 uvuMappingList :: List (Word -> ExceptT String Effect Word)
@@ -48,7 +55,8 @@ uwuMappingList = toUnfoldable
 
 owoMappingList :: List (Word -> ExceptT String Effect Word)
 owoMappingList = toUnfoldable
-  [ except <<< Mappings.mapLlToWw
+  [ except <<< Mappings.mapNVowelToNy
+  , except <<< Mappings.mapLlToWw
   , except <<< Mappings.mapVowelOrRExceptOLToWl
   , except <<< Mappings.mapOldToOwld
   , except <<< Mappings.mapOlToOwl
@@ -63,4 +71,6 @@ owoMappingList = toUnfoldable
   , except <<< Mappings.mapLyToWy
   , except <<< Mappings.mapPleToPwe
   , except <<< Mappings.mapNrToNw
+  , except <<< Mappings.mapMemToMwem
+  , except <<< Mappings.unmapNywoToNyo
   ]

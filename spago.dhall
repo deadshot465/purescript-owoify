@@ -1,7 +1,9 @@
 { name = "owoify"
 , license = "MIT"
 , dependencies =
-  [ "arrays"
+  [ "aff"
+  , "arrays"
+  , "assert"
   , "bifunctors"
   , "console"
   , "effect"
@@ -10,6 +12,8 @@
   , "integers"
   , "lists"
   , "maybe"
+  , "node-buffer"
+  , "node-fs-aff"
   , "prelude"
   , "psci-support"
   , "random"
@@ -19,6 +23,6 @@
   , "unfoldable"
   ]
 , packages = ./packages.dhall
-, sources = [ "src/**/*.purs" ]
+, sources = [ "src/**/*.purs", "test/**/*.purs" ]
 , repository = "https://github.com/deadshot465/purescript-owoify"
 }

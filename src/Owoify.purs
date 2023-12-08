@@ -1,5 +1,7 @@
 module Data.Owoify.Owoify
   ( owoify
+  , uwuify
+  , uvuify
   , OwoifyLevel(..)
   )
   where
@@ -86,3 +88,9 @@ owoify source level = do
       spacesList <- pure $ Right <$> s
       let interleavedArray = reverse $ mapResult <$> interleave wordsList spacesList
       pure $ intercalate "" interleavedArray
+
+uwuify ∷ String → Effect String
+uwuify source = owoify source Uwu
+
+uvuify ∷ String → Effect String
+uvuify source = owoify source Uvu

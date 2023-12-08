@@ -14,6 +14,8 @@ module Data.Owoify.Internal.Data.Mappings
   , mapMeToMwe
   , mapMomToMwom
   , mapNrToNw
+  , mapMemToMwem
+  , unmapNywoToNyo
   , mapNVowelTToNd
   , mapNVowelToNy
   , mapOldToOwld
@@ -39,6 +41,14 @@ module Data.Owoify.Internal.Data.Mappings
   , mapVowelOrRExceptOLToWl
   , mapWorseToWose
   , mapYouToU
+  , mapGreatToGwate
+  , mapAviatToAwiat
+  , mapDedicatToDeditat
+  , mapRememberToRember
+  , mapWhenToWen
+  , mapFrightenedToFrigten
+  , mapMemeToMem
+  , mapFeelToFell
   )
   where
 
@@ -187,7 +197,16 @@ nrToNwUpper :: Either String Regex
 nrToNwUpper = regex "NR" defaultFlags
 
 nrToNwLower :: Either String Regex
-nrToNwLower = regex "nr" defaultFlags
+nrToNwLower = regex "([Nn])r" defaultFlags
+
+memToMwemUpper ∷ Either String Regex
+memToMwemUpper = regex "Mem" defaultFlags
+
+memToMwemLower ∷ Either String Regex
+memToMwemLower = regex "mem" defaultFlags
+
+nywoToNyo ∷ Either String Regex
+nywoToNyo = regex "([Nn])ywo" defaultFlags
 
 funcToFwuc :: Either String Regex
 funcToFwuc = regex "([Ff])uc" defaultFlags
@@ -195,8 +214,11 @@ funcToFwuc = regex "([Ff])uc" defaultFlags
 momToMwom :: Either String Regex
 momToMwom = regex "([Mm])om" defaultFlags
 
-meToMwe :: Either String Regex
-meToMwe = regex "([Mm])e" defaultFlags
+meToMweUpper :: Either String Regex
+meToMweUpper = regex "^Me$" defaultFlags
+
+meToMweLower ∷ Either String Regex
+meToMweLower = regex "^me$" defaultFlags
 
 nVowelToNyFirst :: Either String Regex
 nVowelToNyFirst = regex "n([aeiou])" defaultFlags
@@ -233,6 +255,33 @@ overToOwor = regex "([Oo])ver" defaultFlags
 
 worseToWose :: Either String Regex
 worseToWose = regex "([Ww])orse" defaultFlags
+
+greatToGwate ∷ Either String Regex
+greatToGwate = regex "([Gg])reat" defaultFlags
+
+aviatToAwiat ∷ Either String Regex
+aviatToAwiat = regex "([Aa])viat" defaultFlags
+
+dedicatToDeditat ∷ Either String Regex
+dedicatToDeditat = regex "([Dd])edicat" defaultFlags
+
+rememberToRember ∷ Either String Regex
+rememberToRember = regex "([Rr])emember" defaultFlags
+
+whenToWen ∷ Either String Regex
+whenToWen = regex "([Ww])hen" defaultFlags
+
+frightenedToFrigten ∷ Either String Regex
+frightenedToFrigten = regex "([Ff])righten(ed)*" defaultFlags
+
+memeToMemFirst ∷ Either String Regex
+memeToMemFirst = regex "Meme" defaultFlags
+
+memeToMemSecond ∷ Either String Regex
+memeToMemSecond = regex "Mem" defaultFlags
+
+feelToFell ∷ Either String Regex
+feelToFell = regex "^([Ff])eel$" defaultFlags
 
 faces :: Array String
 faces =
@@ -395,8 +444,16 @@ mapPleToPwe word = (\r -> replace word r "$1we" false) <$> pleToPwe
 
 mapNrToNw :: Word -> Either String Word
 mapNrToNw word = do
-  w <- (\r -> replace word r "nw" false) <$> nrToNwLower
+  w <- (\r -> replace word r "$1w" false) <$> nrToNwLower
   (\r -> replace w r "NW" false) <$> nrToNwUpper
+
+mapMemToMwem :: Word -> Either String Word
+mapMemToMwem word = do
+  w <- (\r -> replace word r "mwem" false) <$> memToMwemUpper
+  (\r -> replace w r "Mwem" false) <$> memToMwemLower
+
+unmapNywoToNyo ∷ Word → Either String Word
+unmapNywoToNyo word = (\r -> replace word r "$1yo" false) <$> nywoToNyo
 
 mapFucToFwuc :: Word -> Either String Word
 mapFucToFwuc word = (\r -> replace word r "$1wuc" false) <$> funcToFwuc
@@ -405,7 +462,9 @@ mapMomToMwom :: Word -> Either String Word
 mapMomToMwom word = (\r -> replace word r "$1wom" false) <$> momToMwom
 
 mapMeToMwe :: Word -> Either String Word
-mapMeToMwe word = (\r -> replace word r "$1we" false) <$> meToMwe
+mapMeToMwe word = do
+  w <- (\r -> replace word r "Mwe" false) <$> meToMweUpper
+  (\r -> replace w r "mwe" false) <$> meToMweLower
 
 mapNVowelToNy :: Word -> Either String Word
 mapNVowelToNy word = do
@@ -437,3 +496,29 @@ mapOverToOwor word = (\r -> replace word r "$1wor" false) <$> overToOwor
 
 mapWorseToWose :: Word -> Either String Word
 mapWorseToWose word = (\r -> replace word r "$1ose" false) <$> worseToWose
+
+mapGreatToGwate ∷ Word → Either String Word
+mapGreatToGwate word = (\r -> replace word r "$1wate" false) <$> greatToGwate
+
+mapAviatToAwiat ∷ Word → Either String Word
+mapAviatToAwiat word = (\r -> replace word r "$1wiat" false) <$> aviatToAwiat
+
+mapDedicatToDeditat ∷ Word → Either String Word
+mapDedicatToDeditat word = (\r -> replace word r "$1editat" false) <$> dedicatToDeditat
+
+mapRememberToRember ∷ Word → Either String Word
+mapRememberToRember word = (\r -> replace word r "$1ember" false) <$> rememberToRember
+
+mapWhenToWen ∷ Word → Either String Word
+mapWhenToWen word = (\r -> replace word r "$1en" false) <$> whenToWen
+
+mapFrightenedToFrigten ∷ Word → Either String Word
+mapFrightenedToFrigten word = (\r -> replace word r "$1rigten" false) <$> frightenedToFrigten
+
+mapMemeToMem ∷ Word → Either String Word
+mapMemeToMem word = do
+  w <- (\r -> replace word r "mem" false) <$> memeToMemFirst
+  (\r -> replace w r "Mem" false) <$> memeToMemSecond
+
+mapFeelToFell ∷ Word → Either String Word
+mapFeelToFell word = (\r -> replace word r "$1ell" false) <$> feelToFell
