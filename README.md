@@ -19,15 +19,13 @@ While it's doable to just `npm install owoify-js` and use `foreign import` to bi
 
 ## Install instructions
 
-Either add `owoify` to your `spago.dhall`:
+Either add `owoify` to your `spago.yaml`:
 
-```dhall
-{ name = "..."
-, dependencies =
-  [
-    "owoify"
-  ]
-}
+```yaml
+package:
+  name: your-package
+  dependencies:
+    - owoify
 ```
 
 Or do this in command line:

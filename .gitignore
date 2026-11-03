@@ -8,5 +8,6 @@
 /.purs*
 /.psa*
 /.spago
+/spago.lock
 .DS_Store
 **/*/.DS_Store
