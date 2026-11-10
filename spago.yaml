@@ -29,5 +29,4 @@ package:
       - assert: ">=6.0.0 <7.0.0"
       - node-buffer: ">=8.0.0 <9.0.0"
       - node-fs-aff: ">=9.2.0 <10.0.0"
-      - psci-support: ">=6.0.0 <7.0.0"
 workspace: {}
